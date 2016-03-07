@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">DBF в TXT</string>
+    <string name="select_file">Выберите DBF</string>
+    <string name="convert">Преобразовать в TXT</string>
+    <string name="converted">Преобразование DBF закончено</string>
+    <string name="converting">Преобразование DBF</string>
+    <string name="inp_enc">Входная кодировка</string>
+    <string name="out_enc">Выходная кодировка</string>
+    <string name="file_not_selected">Файл не выбран</string>
+    <string name="create_error">Не удалось создать новый файл.</string>
+    <string name="write_error">Невозможно записать файл.</string>
+    <string name="convert_error">Ошибка при преобразовании файла.</string>
+</resources>

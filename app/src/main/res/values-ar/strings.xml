@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">DBF إلى TXT</string>
+    <string name="select_file">حدد DBF</string>
+    <string name="convert">تحويل إلى TXT</string>
+    <string name="converted">تحويل DBF الانتهاء</string>
+    <string name="converting">تحويل DBF</string>
+    <string name="inp_enc">ترميز المدخلات</string>
+    <string name="out_enc">ترميز الإخراج</string>
+    <string name="file_not_selected">ملف لم يتم تحديد</string>
+    <string name="create_error">غير قادر على إنشاء ملف جديد.</string>
+    <string name="write_error">غير قادر على كتابة ملف.</string>
+    <string name="convert_error">خطأ أثناء تحويل الملف.</string>
+</resources>

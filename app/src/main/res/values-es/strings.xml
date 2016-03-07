@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">DBF a TXT</string>
+    <string name="select_file">Seleccione DBF</string>
+    <string name="convert">Convertir en TXT</string>
+    <string name="converted">La conversión de DBF acabada</string>
+    <string name="converting">DBF en la conversión</string>
+    <string name="inp_enc">codificación de entrada</string>
+    <string name="out_enc">codificación de salida</string>
+    <string name="file_not_selected">Archivo no seleccionado</string>
+    <string name="create_error">No se puede crear nuevo archivo.</string>
+    <string name="write_error">No se puede escribir el archivo.</string>
+    <string name="convert_error">Error de conversión de archivos.</string>
+</resources>
