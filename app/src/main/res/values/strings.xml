@@ -16,8 +16,8 @@
     <string name="write_permission_denied">The app can not work without access the memory storage.</string>
 
     <string name="admob_app_id" translatable="false">ca-app-pub-1615361990748256~5897337245</string>
-    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1615361990748256/1670350412</string> <!--test id-->
-    <string name="fullscreen_add_id" translatable="false">ca-app-pub-1615361990748256/6200977580</string> <!--test id-->
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1615361990748256/1670350412</string>
+    <string name="fullscreen_add_id" translatable="false">ca-app-pub-1615361990748256/6200977580</string>
     <string-array name="ENCODINGS" translatable="false">
         <item>IBM00858</item>
         <item>IBM437</item>
