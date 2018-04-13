@@ -1,13 +1,18 @@
 <resources>
-    <string name="app_name">DBF to TXT</string>
-    <string name="select_file">Selezionare DBF</string>
-    <string name="convert">Convertire in TXT</string>
-    <string name="converted">Conversione DBF finito</string>
-    <string name="converting">Conversione DBF</string>
-    <string name="inp_enc">codifica in ingresso</string>
-    <string name="out_enc">la codifica di uscita</string>
-    <string name="file_not_selected">File non selezionati</string>
+    <string name="app_name">Da DBF a TXT</string>
+    <string name="select_file">Seleziona DBF</string>
+    <string name="convert">Converti in TXT</string>
+    <string name="converted">Conversione di DBF finito</string>
+    <string name="converting">Conversione di DBF</string>
+    <string name="inp_enc">Codifica di input</string>
+    <string name="out_enc">Codifica dell\'output</string>
+    <string name="file_not_selected">File non selezionato</string>
     <string name="create_error">Impossibile creare il nuovo file.</string>
     <string name="write_error">Impossibile scrivere il file.</string>
     <string name="convert_error">Errore durante la conversione del file.</string>
+    <string name="write_permission_msg">L\'app richiede un\'autorizzazione per l\'archiviazione di memoria per scrivere il file di database convertito. Si prega di concedere l\'autorizzazione di archiviazione esterna.</string>
+    <string name="cancel">Annulla</string>
+    <string name="ok">ok</string>
+    <string name="write_permission_denied">L\'app non può funzionare senza accedere alla memoria.</string>
+
 </resources>

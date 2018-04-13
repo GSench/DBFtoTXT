@@ -10,4 +10,8 @@
     <string name="create_error">Не удалось создать новый файл.</string>
     <string name="write_error">Невозможно записать файл.</string>
     <string name="convert_error">Ошибка при преобразовании файла.</string>
+    <string name="write_permission_msg">"Приложение должно иметь разрешение на запись в память для записи преобразованного файла базы данных. Предоставьте разрешение на запись .</string>
+    <string name="cancel">"Отмена</string>
+    <string name="ok">"ОК</string>
+    <string name="write_permission_denied">"Приложение не может работать без доступа к памяти.</string>
 </resources>

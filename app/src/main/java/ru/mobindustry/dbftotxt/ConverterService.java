@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 //import android.util.Log;
 
 import org.jamel.dbf.DbfReader;
@@ -123,15 +123,16 @@ public class ConverterService extends Service {
                     setError(getString(R.string.write_error));
                     return;
                 }
-                Processor processor = null;
-                DbfReader reader = null;
-                int count = 0;
+                Processor processor;
+                DbfReader reader;
+                int count;
                 try {
                     processor = new Processor(outputStream, inpEnc, outEnc);
                     reader = new DbfReader(file);
                     count = reader.getRecordCount();
                 } catch (Exception e){
                     setError(getString(R.string.convert_error));
+                    return;
                 }
                 try {
                     Object[] row;
@@ -143,12 +144,8 @@ public class ConverterService extends Service {
                 } catch (Exception e){
                     setError(getString(R.string.convert_error));
                 } finally {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                    if (processor != null) {
-                        processor.close();
-                    }
+                    reader.close();
+                    processor.close();
                 }
             }
         }).start();

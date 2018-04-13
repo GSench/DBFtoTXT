@@ -19,8 +19,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
 import java.io.File;
@@ -34,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
 
     public static final String SPREF = "ConvertPreferences";
+    public static final String FIRST_LAUNCH = "First Launch";
 
     int PICK_FILE = 1;
 
@@ -47,10 +51,12 @@ public class MainActivity extends AppCompatActivity {
     Spinner inputEnc, outputEnc;
     ProgressBar progressBar;
     LinearLayout settings;
+    private InterstitialAd mInterstitialAd;
 
     boolean bound = false;
     ServiceConnection sConn;
     ConverterService converterService;
+    private PermissionManager permissionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +64,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         act=this;
 
-        convertButton = (Button)findViewById(R.id.convert_btn);
-        processText = ((TextView) findViewById(R.id.process));
-        filePath = ((TextView) findViewById(R.id.path));
+        initViews();
+
         if(savedInstanceState!=null){
             String file = savedInstanceState.getString(ConverterService.FILE, null);
             String path = savedInstanceState.getString(ConverterService.PATH, null);
@@ -70,37 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 this.path = new File(path);
             }
         }
-        settings = (LinearLayout)findViewById(R.id.settings);
-        progressBar=(ProgressBar)findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.INVISIBLE);
-
-        ArrayList<String> input = new ArrayList<String>();
-        input.add(getString(R.string.inp_enc));
-        input.addAll(Arrays.asList(Processor.ENCODINGS));
-        ArrayList<String> output = new ArrayList<String>();
-        output.add(getString(R.string.out_enc));
-        output.addAll(Arrays.asList(Processor.ENCODINGS));
-
-        ArrayAdapter<String> adapterInp = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, input);
-        adapterInp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        ArrayAdapter<String> adapterOut = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, output);
-        adapterOut.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        SharedPreferences spref = getSharedPreferences(SPREF, MODE_PRIVATE);
-
-        inputEnc = (Spinner) findViewById(R.id.inp_enc);
-        inputEnc.setAdapter(adapterInp);
-        inputEnc.setPrompt(getString(R.string.inp_enc));
-        inputEnc.setSelection(spref.getInt(ConverterService.INP_ENC, 0));
-        outputEnc = (Spinner) findViewById(R.id.out_enc);
-        outputEnc.setAdapter(adapterOut);
-        outputEnc.setPrompt(getString(R.string.out_enc));
-        outputEnc.setSelection(spref.getInt(ConverterService.OUT_ENC, 0));
-
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
         sConn = new ServiceConnection() {
 
@@ -116,6 +90,70 @@ public class MainActivity extends AppCompatActivity {
                 //Log.d("DBF_TO_TXT", "MainActivity onServiceDisconnected, bound = false");
             }
         };
+
+        checkPermissions();
+    }
+
+    private void checkPermissions(){
+        permissionManager = new PermissionManager(this);
+        permissionManager.requestBasePermissions(this, new function() {
+            @Override
+            public void run(String... params) {}
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        permissionManager.onPermissionCallback(requestCode, permissions, grantResults);
+    }
+
+    private void initAds(SharedPreferences spref){
+        if(spref.getBoolean(FIRST_LAUNCH, true)) {
+            MobileAds.initialize(this, getString(R.string.admob_app_id));
+            spref.edit().putBoolean(FIRST_LAUNCH, false).apply();
+        }
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        try{
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.fullscreen_add_id));
+    }
+
+    private void initViews(){
+        convertButton = (Button)findViewById(R.id.convert_btn);
+        processText = ((TextView) findViewById(R.id.process));
+        filePath = ((TextView) findViewById(R.id.path));
+        settings = (LinearLayout)findViewById(R.id.settings);
+        progressBar=(ProgressBar)findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.INVISIBLE);
+
+        ArrayList<String> input = new ArrayList<String>();
+        input.add(getString(R.string.inp_enc));
+        input.addAll(Arrays.asList(getResources().getStringArray(R.array.ENCODINGS)));
+        ArrayList<String> output = new ArrayList<String>();
+        output.add(getString(R.string.out_enc));
+        output.addAll(Arrays.asList(getResources().getStringArray(R.array.ENCODINGS)));
+
+        ArrayAdapter<String> adapterInp = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, input);
+        adapterInp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter<String> adapterOut = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, output);
+        adapterOut.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        SharedPreferences spref = getSharedPreferences(SPREF, MODE_PRIVATE);
+
+        inputEnc = (Spinner) findViewById(R.id.inp_enc);
+        inputEnc.setAdapter(adapterInp);
+        inputEnc.setPrompt(getString(R.string.inp_enc));
+        inputEnc.setSelection(spref.getInt(ConverterService.INP_ENC, 0));
+        outputEnc = (Spinner) findViewById(R.id.out_enc);
+        outputEnc.setAdapter(adapterOut);
+        outputEnc.setPrompt(getString(R.string.out_enc));
+        outputEnc.setSelection(spref.getInt(ConverterService.OUT_ENC, 0));
+        initAds(spref);
     }
 
     @Override
@@ -147,6 +185,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void convert(View v){
+        doConvert();
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+    }
+
+    private void showAd() {
+        if(mInterstitialAd.isLoaded())
+            mInterstitialAd.show();
+        else{
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    mInterstitialAd.show();
+                }
+            });
+            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        }
+
+    }
+
+    private void doConvert(){
         if(file==null){
             Toast.makeText(this, getString(R.string.file_not_selected), Toast.LENGTH_LONG).show();
             return;
@@ -157,9 +215,10 @@ public class MainActivity extends AppCompatActivity {
                 .edit()
                 .putInt(ConverterService.INP_ENC, inp)
                 .putInt(ConverterService.OUT_ENC, out)
-                .commit();
-        String inpName = Processor.ENCODINGS[inp==0 ? inp : inp-1];
-        String outName = Processor.ENCODINGS[out==0 ? out : out-1];
+                .apply();
+        String[] ENCODINGS = getResources().getStringArray(R.array.ENCODINGS);
+        String inpName = ENCODINGS[inp==0 ? inp : inp-1];
+        String outName = ENCODINGS[out==0 ? out : out-1];
         Intent intent = new Intent(this, ConverterService.class);
         intent.putExtra(ConverterService.FILE, file.getAbsolutePath());
         intent.putExtra(ConverterService.PATH, path.getAbsolutePath());
@@ -197,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
                                 filePath.setText(converterService.getFile().getAbsolutePath());
                                 converterService.stopSelf();
                             } else if(converterService.isFinished()){
+                                showAd();
                                 processText.setText(getString(R.string.converted));
                                 filePath.setText(converterService.getFile().getAbsolutePath());
                                 convertButton.setClickable(true);
@@ -242,7 +302,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setType("*/*");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
             startActivityForResult(intent, PICK_FILE);
         } else {
@@ -253,9 +312,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle instanceState){
-        if(file!=null) instanceState.putString(ConverterService.FILE, file.getAbsolutePath());
-        if(path!=null) instanceState.putString(ConverterService.PATH, path.getAbsolutePath());
+    public void onSaveInstanceState(Bundle instanceState) {
+        if (file != null) instanceState.putString(ConverterService.FILE, file.getAbsolutePath());
+        if (path != null) instanceState.putString(ConverterService.PATH, path.getAbsolutePath());
+        super.onSaveInstanceState(instanceState);
     }
 
 }

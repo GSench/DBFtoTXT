@@ -1,13 +1,18 @@
 <resources>
     <string name="app_name">DBF a TXT</string>
-    <string name="select_file">Seleccione DBF</string>
-    <string name="convert">Convertir en TXT</string>
-    <string name="converted">La conversión de DBF acabada</string>
-    <string name="converting">DBF en la conversión</string>
-    <string name="inp_enc">codificación de entrada</string>
-    <string name="out_enc">codificación de salida</string>
+    <string name="select_file">Seleccionar DBF</string>
+    <string name="convert">Convertir a TXT</string>
+    <string name="converted">Convirtiendo DBF terminado</string>
+    <string name="converting">Convirtiendo DBF</string>
+    <string name="inp_enc">Codificación de entrada</string>
+    <string name="out_enc">Codificación de salida</string>
     <string name="file_not_selected">Archivo no seleccionado</string>
-    <string name="create_error">No se puede crear nuevo archivo.</string>
+    <string name="create_error">No se puede crear un nuevo archivo.</string>
     <string name="write_error">No se puede escribir el archivo.</string>
-    <string name="convert_error">Error de conversión de archivos.</string>
+    <string name="convert_error">Error al convertir el archivo.</string>
+    <string name="write_permission_msg">La aplicación necesita un permiso de almacenamiento de memoria para escribir el archivo de base de datos convertido. Por favor conceda permiso de almacenamiento externo.</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">DE ACUERDO</string>
+    <string name="write_permission_denied">La aplicación no puede funcionar sin acceder al almacenamiento de memoria.</string>
+
 </resources>

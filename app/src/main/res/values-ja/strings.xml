@@ -1,13 +1,18 @@
 <resources>
-    <string name="app_name">TXTへのDBF</string>
+    <string name="app_name">DBFからTXTへ</string>
     <string name="select_file">DBFを選択</string>
-    <string name="convert">TXTに変換</string>
-    <string name="converted">変換DBF終了</string>
-    <string name="converting">変換DBF</string>
+    <string name="convert">TXTに変換する</string>
+    <string name="converted">DBFの変換を完了しました</string>
+    <string name="converting">DBFの変換</string>
     <string name="inp_enc">入力エンコーディング</string>
     <string name="out_enc">出力エンコーディング</string>
-    <string name="file_not_selected">ファイルが選択されていません</string>
-    <string name="create_error">新しいファイルを作成することができません。</string>
-    <string name="write_error">ファイルを書き込むことができません。</string>
-    <string name="convert_error">ファイルを変換中にエラーが発生しました。</string>
+    <string name="file_not_selected">ファイルが選択されていない</string>
+    <string name="create_error">新しいファイルを作成できません。</string>
+    <string name="write_error">ファイルを書き込めません。</string>
+    <string name="convert_error">ファイルの変換中にエラーが発生しました。</string>
+    <string name="write_permission_msg">変換されたデータベースファイルを書き込むには、アプリケーションにメモリ記憶権が必要です。外部ストレージの許可を与えてください。</string>
+    <string name="cancel">キャンセル</string>
+    <string name="ok">[OK]</string>
+    <string name="write_permission_denied">メモリストレージにアクセスすることなくアプリを動作させることはできません。</string>
+
 </resources>

@@ -10,5 +10,52 @@
     <string name="create_error">Unable to create new file.</string>
     <string name="write_error">Unable to write file.</string>
     <string name="convert_error">Error during converting file.</string>
-    <string name="banner_ad_unit_id">ca-app-pub-5047114704239719/1648120387</string>
+    <string name="write_permission_msg">The app needs a memory storage permission to write the converted database file. Please grant external storage permission.</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="write_permission_denied">The app can not work without access the memory storage.</string>
+
+    <string name="admob_app_id" translatable="false">ca-app-pub-1615361990748256~5897337245</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-1615361990748256/1670350412</string> <!--test id-->
+    <string name="fullscreen_add_id" translatable="false">ca-app-pub-1615361990748256/6200977580</string> <!--test id-->
+    <string-array name="ENCODINGS" translatable="false">
+        <item>IBM00858</item>
+        <item>IBM437</item>
+        <item>IBM775</item>
+        <item>IBM850</item>
+        <item>IBM852</item>
+        <item>IBM855</item>
+        <item>IBM857</item>
+        <item>IBM862</item>
+        <item>IBM866</item>
+        <item>ISO–8859–1</item>
+        <item>ISO–8859–2</item>
+        <item>ISO–8859–4</item>
+        <item>ISO–8859–5</item>
+        <item>ISO–8859–7</item>
+        <item>ISO–8859–9</item>
+        <item>ISO–8859–13</item>
+        <item>ISO–8859–15</item>
+        <item>KOI8-R</item>
+        <item>KOI8-U</item>
+        <item>US-ASCII</item>
+        <item>UTF-8</item>
+        <item>UTF-16</item>
+        <item>UTF-16BE</item>
+        <item>UTF-16LE</item>
+        <item>UTF-32</item>
+        <item>UTF-32BE</item>
+        <item>UTF-32LE</item>
+        <item>x-UTF-32BE-BOM</item>
+        <item>x-UTF-32LE-BOM</item>
+        <item>windows-1250</item>
+        <item>windows-1251</item>
+        <item>windows-1252</item>
+        <item>windows-1253</item>
+        <item>windows-1254</item>
+        <item>windows-1257</item>
+        <item>x-IBM737</item>
+        <item>x-IBM874</item>
+        <item>x-UTF-16LE-BOM</item>
+    </string-array>
 </resources>
