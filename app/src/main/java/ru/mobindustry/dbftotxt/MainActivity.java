@@ -289,8 +289,9 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         if(requestCode==PICK_FILE){
             if(resultCode==RESULT_OK){
-                file = UriUtils.getFile(this, resultData.getData());
-                path = file.getParentFile();
+                //TODO fix NullPointerException bug
+                file = UriUtils.getFile(this, resultData.getData()); // - UriUtils.getFile works bad
+                path = file.getParentFile(); //Need to implement new FAS API or another way to get destination file
                 filePath.setText(file.getAbsolutePath());
             }
         }
